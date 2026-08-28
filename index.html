@@ -495,7 +495,7 @@ async function shareText(text) {
 }
 
 var draftsScript = null;
-fetch('meal-plan-builder.js')
+fetch('meal-plan-drafts-action.js')
   .then(function(r) { return r.text(); })
   .then(function(t) { draftsScript = t; });
 
@@ -503,7 +503,7 @@ draftsBtn.addEventListener('click', function() {
   if (draftsScript) {
     shareText(draftsScript);
   } else {
-    fetch('meal-plan-builder.js')
+    fetch('meal-plan-drafts-action.js')
       .then(function(r) { return r.text(); })
       .then(function(t) { draftsScript = t; shareText(t); })
       .catch(function() { showToast('Failed to load script'); });

@@ -1,6 +1,26 @@
-// Meal Plan Builder — Drafts Action
-// Builds a plain-text meal planning template via a series of prompts.
-var MEAL_PLAN_VERSION = 1;
+// Meal Plan Builder — Drafts Action (auto-updating)
+// Checks for a newer version online, falls back to embedded code if offline.
+
+var REMOTE_URL = "https://zsloot.github.io/Meal-Plan/meal-plan-builder.js";
+var useRemote = false;
+
+try {
+  var http = HTTP.create();
+  var response = http.request({ "url": REMOTE_URL, "method": "GET" });
+  if (response.success) {
+    var remoteCode = response.responseText;
+    var remoteVersion = 0;
+    var match = remoteCode.match(/MEAL_PLAN_VERSION\s*=\s*(\d+)/);
+    if (match) remoteVersion = parseInt(match[1]);
+    if (remoteVersion > MEAL_PLAN_VERSION) {
+      eval(remoteCode);
+      useRemote = true;
+    }
+  }
+} catch (e) {}
+
+if (!useRemote) {
+// --- Embedded fallback (v1) ---
 
 var MEALS = [
   "BREAKFAST",
@@ -37,7 +57,6 @@ p1.addButton("Next");
 if (!p1.show()) {
   context.cancel();
   app.displayInfoMessage("Cancelled");
-  // stop execution
 }
 else {
 
@@ -147,3 +166,5 @@ app.displaySuccessMessage("Meal plan template created!");
 } // p2 show
 } // date validation
 } // p1 show
+
+} // end fallback
