@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meal Plan Builder</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@500;700;800;900&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;900&display=swap');
-
   * {
     margin: 0;
     padding: 0;
@@ -16,95 +15,36 @@
   body {
     background: #fff;
     color: #000;
-    font-family: 'Futura', 'Nunito Sans', 'Trebuchet MS', Arial, sans-serif;
+    font-family: 'Futura', 'Jost', 'Trebuchet MS', Arial, sans-serif;
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
   }
 
   .container {
-    max-width: 600px;
+    max-width: 580px;
     margin: 0 auto;
-    padding: 40px 20px 60px;
+    padding: 48px 20px 80px;
   }
 
   h1 {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 36px;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
   }
 
   label {
     display: block;
-    font-size: 11px;
-    font-weight: 900;
+    font-size: 10px;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     margin-bottom: 8px;
   }
 
   input[type="text"],
-  input[type="date"] {
-    width: 100%;
-    border: 2px solid #000;
-    border-radius: 0;
-    padding: 12px 14px;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 15px;
-    background: #fff;
-    color: #000;
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  input[type="text"]::placeholder {
-    color: #bbb;
-    font-weight: 700;
-  }
-
-  input[type="text"]:focus,
-  input[type="date"]:focus {
-    border-color: #000;
-    box-shadow: 3px 3px 0 #000;
-  }
-
-  .field {
-    margin-bottom: 28px;
-  }
-
-  .field-row {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .field-row .field {
-    flex: 1;
-    margin-bottom: 0;
-  }
-
-  .people-row {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .people-row .field {
-    margin-bottom: 0;
-  }
-
-  .people-row .field:first-child {
-    width: 100px;
-    flex-shrink: 0;
-  }
-
-  .people-row .field:last-child {
-    flex: 1;
-  }
-
+  input[type="date"],
   input[type="number"] {
     width: 100%;
     border: 2px solid #000;
@@ -118,6 +58,9 @@
     outline: none;
     -webkit-appearance: none;
     appearance: none;
+  }
+
+  input[type="number"] {
     -moz-appearance: textfield;
   }
 
@@ -127,36 +70,81 @@
     margin: 0;
   }
 
+  input[type="text"]::placeholder {
+    color: #bbb;
+    font-weight: 700;
+  }
+
+  input[type="text"]:focus,
+  input[type="date"]:focus,
   input[type="number"]:focus {
-    border-color: #000;
     box-shadow: 3px 3px 0 #000;
+  }
+
+  .field {
+    margin-bottom: 24px;
+  }
+
+  .field-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .field-row > .field {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .people-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .people-row > .field {
+    margin-bottom: 0;
+  }
+
+  .people-row > .field:first-child {
+    width: 96px;
+    flex-shrink: 0;
+  }
+
+  .people-row > .field:last-child {
+    flex: 1;
   }
 
   .meals-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 28px;
+    gap: 6px;
   }
 
   .meal-toggle {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .meal-label {
     display: inline-block;
-    padding: 10px 18px;
+    padding: 10px 16px;
     border: 2px solid #000;
     font-family: inherit;
-    font-weight: 900;
-    font-size: 12px;
+    font-weight: 800;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     cursor: pointer;
     user-select: none;
-    transition: background 0.1s, color 0.1s;
     background: #fff;
     color: #000;
+    transition: background 0.08s, color 0.08s;
+  }
+
+  .meal-toggle:focus-visible + .meal-label {
+    box-shadow: 3px 3px 0 #000;
   }
 
   .meal-toggle:checked + .meal-label {
@@ -167,51 +155,52 @@
   .divider {
     border: none;
     border-top: 2px solid #000;
-    margin: 36px 0;
+    margin: 40px 0;
   }
 
   .output-label {
-    font-size: 11px;
-    font-weight: 900;
+    font-size: 10px;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
   }
 
   .output-box {
     width: 100%;
     border: 2px solid #000;
-    border-radius: 0;
-    padding: 20px;
-    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
-    font-size: 13px;
+    padding: 20px 22px;
+    font-family: inherit;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 1.7;
+    line-height: 1.75;
     background: #fff;
     color: #000;
     white-space: pre-wrap;
     word-break: break-word;
-    min-height: 120px;
-    resize: none;
-    outline: none;
+    min-height: 100px;
   }
 
   .share-btn {
     display: block;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 16px;
     padding: 16px;
     border: 2px solid #000;
     border-radius: 0;
     background: #000;
     color: #fff;
     font-family: inherit;
-    font-weight: 900;
-    font-size: 13px;
+    font-weight: 800;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
     cursor: pointer;
-    transition: background 0.1s, color 0.1s;
+    transition: background 0.08s, color 0.08s;
+  }
+
+  .share-btn:hover {
+    background: #222;
   }
 
   .share-btn:active {
@@ -219,27 +208,46 @@
     color: #000;
   }
 
-  .copied-toast {
+  .share-btn:focus-visible {
+    box-shadow: 3px 3px 0 #000;
+    outline: none;
+  }
+
+  .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 32px;
     left: 50%;
-    transform: translateX(-50%) translateY(20px);
+    transform: translateX(-50%) translateY(16px);
     background: #000;
     color: #fff;
     padding: 12px 28px;
     font-family: inherit;
-    font-weight: 900;
-    font-size: 12px;
+    font-weight: 800;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     opacity: 0;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.15s, transform 0.15s;
     pointer-events: none;
   }
 
-  .copied-toast.show {
+  .toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    .people-row {
+      flex-direction: column;
+      gap: 24px;
+    }
+    .people-row > .field:first-child {
+      width: 100%;
+    }
+    .field-row {
+      flex-direction: column;
+      gap: 24px;
+    }
   }
 </style>
 </head>
@@ -280,13 +288,13 @@
 
   <hr class="divider">
 
-  <div class="output-label">Output</div>
+  <p class="output-label">Output</p>
   <div class="output-box" id="output"></div>
 
   <button class="share-btn" id="share-btn">Share Meal Plan Template</button>
 </div>
 
-<div class="copied-toast" id="toast">Copied to clipboard</div>
+<div class="toast" id="toast"></div>
 
 <script>
 const MEALS = [
@@ -305,9 +313,9 @@ const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
 const grid = document.getElementById('meals-grid');
-MEALS.forEach(meal => {
-  const id = 'meal-' + meal.replace(/\s+/g, '-').toLowerCase();
-  const cb = document.createElement('input');
+MEALS.forEach(function(meal) {
+  var id = 'meal-' + meal.replace(/\s+/g, '-').toLowerCase();
+  var cb = document.createElement('input');
   cb.type = 'checkbox';
   cb.className = 'meal-toggle';
   cb.id = id;
@@ -315,7 +323,7 @@ MEALS.forEach(meal => {
   cb.checked = DEFAULTS_ON.has(meal);
   cb.addEventListener('change', render);
 
-  const lbl = document.createElement('label');
+  var lbl = document.createElement('label');
   lbl.className = 'meal-label';
   lbl.htmlFor = id;
   lbl.textContent = meal;
@@ -324,132 +332,119 @@ MEALS.forEach(meal => {
   grid.appendChild(lbl);
 });
 
-const startInput = document.getElementById('start-date');
-const endInput = document.getElementById('end-date');
-const planName = document.getElementById('plan-name');
-const peopleCount = document.getElementById('people-count');
-const notesInput = document.getElementById('notes');
-const output = document.getElementById('output');
+var startInput = document.getElementById('start-date');
+var endInput = document.getElementById('end-date');
+var planName = document.getElementById('plan-name');
+var peopleCount = document.getElementById('people-count');
+var notesInput = document.getElementById('notes');
+var output = document.getElementById('output');
 
-// Default: today + 3 days
-const today = new Date();
-const todayStr = fmt(today);
-const endDefault = new Date(today);
+var today = new Date();
+var endDefault = new Date(today);
 endDefault.setDate(endDefault.getDate() + 3);
-startInput.value = todayStr;
-endInput.value = fmt(endDefault);
+startInput.value = fmtDate(today);
+endInput.value = fmtDate(endDefault);
 
-function fmt(d) {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+function fmtDate(d) {
+  return d.getFullYear() + '-' +
+    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+    String(d.getDate()).padStart(2, '0');
 }
 
-function parseLocal(dateStr) {
-  const [y, m, d] = dateStr.split('-').map(Number);
-  return new Date(y, m - 1, d);
+function parseLocal(str) {
+  var p = str.split('-').map(Number);
+  return new Date(p[0], p[1] - 1, p[2]);
 }
 
 function getSelectedMeals() {
-  return MEALS.filter(m => {
-    const id = 'meal-' + m.replace(/\s+/g, '-').toLowerCase();
-    return document.getElementById(id).checked;
+  return MEALS.filter(function(m) {
+    return document.getElementById('meal-' + m.replace(/\s+/g, '-').toLowerCase()).checked;
   });
 }
 
 function render() {
-  const meals = getSelectedMeals();
-  const start = startInput.value;
-  const end = endInput.value;
+  var meals = getSelectedMeals();
+  var start = startInput.value;
+  var end = endInput.value;
 
   if (!start || !end || meals.length === 0) {
     output.textContent = '';
     return;
   }
 
-  const startDate = parseLocal(start);
-  const endDate = parseLocal(end);
+  var startDate = parseLocal(start);
+  var endDate = parseLocal(end);
 
   if (endDate < startDate) {
     output.textContent = '';
     return;
   }
 
-  let lines = [];
+  var lines = [];
+  var name = planName.value.trim();
+  if (name) lines.push(name.toUpperCase());
 
-  const name = planName.value.trim();
-  if (name) {
-    lines.push(name.toUpperCase());
-  }
-
-  const count = parseInt(peopleCount.value) || '';
-  const note = notesInput.value.trim();
-  let subline = '';
-  if (count) subline += count + ' people';
-  if (count && note) subline += ' - ';
-  if (note) subline += note;
-  if (subline) lines.push(subline);
+  var count = parseInt(peopleCount.value) || 0;
+  var note = notesInput.value.trim();
+  var sub = '';
+  if (count) sub += count + ' people';
+  if (count && note) sub += ' - ';
+  if (!count && note) sub += note;
+  else if (note) sub += note;
+  if (sub) lines.push(sub);
 
   if (lines.length > 0) lines.push('');
 
-  const cursor = new Date(startDate);
-  const totalDays = Math.round((endDate - startDate) / 86400000) + 1;
+  var totalDays = Math.round((endDate - startDate) / 86400000) + 1;
+  var cursor = new Date(startDate);
+  var dayIndex = 0;
 
-  let dayIndex = 0;
   while (cursor <= endDate) {
-    const dayName = DAYS[cursor.getDay()];
-    const monthName = MONTHS[cursor.getMonth()];
-    const dateNum = cursor.getDate();
+    var dayName = DAYS[cursor.getDay()];
+    var monthName = MONTHS[cursor.getMonth()];
+    var dateNum = cursor.getDate();
+    lines.push(dayName + ' - ' + monthName + ' ' + dateNum);
 
-    lines.push(`${dayName} - ${monthName} ${dateNum}`);
-
-    let dayMeals;
+    var dayMeals;
     if (dayIndex === 0 && totalDays > 1) {
-      // First day: last meal only
       dayMeals = [meals[meals.length - 1]];
     } else if (dayIndex === totalDays - 1 && totalDays > 1) {
-      // Last day: first meal only
       dayMeals = [meals[0]];
     } else {
       dayMeals = meals;
     }
 
-    dayMeals.forEach(m => {
-      lines.push(`    ${m} - `);
-    });
+    for (var i = 0; i < dayMeals.length; i++) {
+      lines.push('    ' + dayMeals[i] + ' - ');
+    }
 
     lines.push('');
     cursor.setDate(cursor.getDate() + 1);
     dayIndex++;
   }
 
-  // Remove trailing blank line
   while (lines.length && lines[lines.length - 1] === '') lines.pop();
-
   output.textContent = lines.join('\n');
 }
 
-[startInput, endInput, planName, peopleCount, notesInput].forEach(el => {
+[startInput, endInput, planName, peopleCount, notesInput].forEach(function(el) {
   el.addEventListener('input', render);
 });
 
 render();
 
-// Share
-const shareBtn = document.getElementById('share-btn');
-const toast = document.getElementById('toast');
+var shareBtn = document.getElementById('share-btn');
+var toast = document.getElementById('toast');
 
-shareBtn.addEventListener('click', async () => {
-  const text = output.textContent;
+shareBtn.addEventListener('click', async function() {
+  var text = output.textContent;
   if (!text) return;
 
   if (navigator.share) {
     try {
-      await navigator.share({ text });
+      await navigator.share({ text: text });
       return;
     } catch (e) {
-      // User cancelled or share failed, fall through to clipboard
       if (e.name === 'AbortError') return;
     }
   }
@@ -458,8 +453,7 @@ shareBtn.addEventListener('click', async () => {
     await navigator.clipboard.writeText(text);
     showToast('Copied to clipboard');
   } catch (e) {
-    // Fallback
-    const ta = document.createElement('textarea');
+    var ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position = 'fixed';
     ta.style.opacity = '0';
@@ -474,7 +468,7 @@ shareBtn.addEventListener('click', async () => {
 function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 1800);
+  setTimeout(function() { toast.classList.remove('show'); }, 1800);
 }
 </script>
 
