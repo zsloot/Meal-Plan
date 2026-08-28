@@ -123,7 +123,7 @@ while (dayIndex < totalDays) {
   }
 
   for (var m = 0; m < dayMeals.length; m++) {
-    lines.push("    " + dayMeals[m] + " - ");
+    lines.push("   " + dayMeals[m] + " - ");
   }
 
   lines.push("");
